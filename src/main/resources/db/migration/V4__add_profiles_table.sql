@@ -7,6 +7,3 @@ CREATE TABLE profiles
     loyalty_points INT UNSIGNED DEFAULT 0,
     FOREIGN KEY (id) REFERENCES users (id)
 );
-
-
-
