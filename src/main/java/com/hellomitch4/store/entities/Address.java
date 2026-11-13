@@ -3,9 +3,6 @@ package com.hellomitch4.store.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,7 +29,7 @@ public class Address {
     @Column(name = "state")
     private String state;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @ToString.Exclude
     private User user;
