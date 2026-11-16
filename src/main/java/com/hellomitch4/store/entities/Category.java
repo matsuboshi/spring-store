@@ -20,13 +20,18 @@ public class Category {
     @Column(name = "id")
     private Byte id;
 
-    public Category(String name) {
-        this.name = name;
-    }
-
     @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new HashSet<>();
+
+    public Category(String name) {
+        this.name = name;
+    }
+
+    public Category(byte id) {
+        this.id = id;
+
+    }
 }
