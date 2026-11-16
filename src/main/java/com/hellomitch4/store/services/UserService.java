@@ -1,12 +1,15 @@
 package com.hellomitch4.store.services;
 
 import com.hellomitch4.store.entities.Address;
+import com.hellomitch4.store.entities.Category;
 import com.hellomitch4.store.entities.User;
 import com.hellomitch4.store.repositories.*;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 
 @AllArgsConstructor
@@ -52,16 +55,16 @@ public class UserService {
 
     public void persistRelated() {
         var user = User.builder()
-                .name("John Doe")
-                .email("jfdj@jfds")
+                .name("Mitch")
+                .email("mitch@mitch")
                 .password("password")
                 .build();
 
         var address = Address.builder()
-                .street("123 Main St")
-                .city("New York")
-                .zip("10001")
-                .state("NY")
+                .street("10 Ind Dr")
+                .city("Ship")
+                .zip("17257")
+                .state("PA")
                 .build();
 
         user.addAddress(address);
@@ -81,5 +84,25 @@ public class UserService {
     @Transactional
     public void manageProducts() {
         productRepository.deleteById(4L);
+    }
+
+    @Transactional
+    public void updateProductPrices() {
+        productRepository.updatePriceByCategory(BigDecimal.valueOf(10), (byte) 1);
+    }
+
+
+    public void fetchProducts() {
+        var products = productRepository.findByCategory(new Category((byte) 1));
+        products.forEach(System.out::println);
+    }
+
+    @Transactional
+    public void fetchUsers() {
+        var users = userRepository.findAllWithTags();
+        users.forEach(u -> {
+            System.out.println(u);
+            u.getAddresses().forEach(System.out::println);
+        });
     }
 }
