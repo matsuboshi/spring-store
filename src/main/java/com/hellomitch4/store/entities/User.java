@@ -14,7 +14,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-@ToString
 @Table(name = "users")
 public class User {
     @Id
@@ -60,8 +59,8 @@ public class User {
     @Builder.Default
     private Set<Tag> tags = new HashSet<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private Profile profile;
+//    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
+//    private Profile profile;
 
     @ManyToMany
     @JoinTable(
@@ -73,5 +72,13 @@ public class User {
 
     public void addFavoriteProduct(Product product) {
         favoriteProducts.add(product);
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "name = " + name + ", " +
+                "email = " + email + ")";
     }
 }
