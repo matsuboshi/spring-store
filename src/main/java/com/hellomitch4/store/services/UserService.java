@@ -1,7 +1,6 @@
 package com.hellomitch4.store.services;
 
 import com.hellomitch4.store.entities.Address;
-import com.hellomitch4.store.entities.Category;
 import com.hellomitch4.store.entities.User;
 import com.hellomitch4.store.repositories.*;
 import jakarta.persistence.EntityManager;
@@ -55,16 +54,16 @@ public class UserService {
 
     public void persistRelated() {
         var user = User.builder()
-                .name("Mitch")
-                .email("mitch@mitch")
+                .name("John Doe")
+                .email("john@doe")
                 .password("password")
                 .build();
 
         var address = Address.builder()
                 .street("10 Ind Dr")
-                .city("Ship")
+                .city("New York")
                 .zip("17257")
-                .state("PA")
+                .state("NY")
                 .build();
 
         user.addAddress(address);
@@ -92,9 +91,12 @@ public class UserService {
     }
 
 
+    @Transactional
     public void fetchProducts() {
-        var products = productRepository.findByCategory(new Category((byte) 1));
+        var products = productRepository.findProducts(BigDecimal.valueOf(1), BigDecimal.valueOf(10));
         products.forEach(System.out::println);
+//        var products = productRepository.findByCategory(new Category((byte) 1));
+//        products.forEach(System.out::println);
     }
 
     @Transactional
